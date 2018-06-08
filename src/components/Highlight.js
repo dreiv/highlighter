@@ -14,9 +14,9 @@ class Highlight extends Component {
 						const chunkText = text.substr(chunk.start, chunk.end - chunk.start)
 
 						if (chunk.highlight) {
-							return <mark>{chunkText}</mark>
+							return <mark key={index}>{chunkText}</mark>
 						}
-						return <React.Fragment>{chunkText}</React.Fragment>
+						return <React.Fragment key={index}>{chunkText}</React.Fragment>
 					})}
 				</React.Fragment>
 			)
@@ -44,6 +44,7 @@ class Highlight extends Component {
 	computeHighlightedChunks(text) {
 
 		const searchWord = this.props.searchWord;
+		if (!searchWord || searchWord.length === 0) return []
 		const regExp = new RegExp(searchWord, 'gi')
 
 		const chunks = []
