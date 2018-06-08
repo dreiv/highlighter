@@ -4,6 +4,8 @@ import { escapeRegExpFn, isScalar } from '../utils/utils'
 class Highlight extends Component {
 
 	render() {
+
+		let _indexCount = -1;
 		const fn = (text) => {
 
 			const allChunks = this.constructAllChunks(this.computeHighlightedChunks(text), text.length)
@@ -14,7 +16,9 @@ class Highlight extends Component {
 						const chunkText = text.substr(chunk.start, chunk.end - chunk.start)
 
 						if (chunk.highlight) {
-							return <mark key={index}>{chunkText}</mark>
+							_indexCount++;
+							const isActive = _indexCount === +this.props.activeIndex
+							return <mark key={index} className='active'>{isActive ? '*' + chunkText : chunkText}</mark>
 						}
 						return <React.Fragment key={index}>{chunkText}</React.Fragment>
 					})}
@@ -76,7 +80,8 @@ class Highlight extends Component {
 }
 
 Highlight.defaultProps = {
-	searchWord: "minim"
+	searchWord: "minim",
+	activeIndex: -1
 }
 
 export default Highlight
