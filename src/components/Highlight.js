@@ -5,7 +5,7 @@ class Highlight extends Component {
 
 	render() {
 
-		let _indexCount = -1;
+		let _indexCount = 0;
 		const fn = (text) => {
 
 			const allChunks = this.constructAllChunks(this.computeHighlightedChunks(text), text.length)
@@ -81,7 +81,7 @@ class Highlight extends Component {
 
 Highlight.defaultProps = {
 	searchWord: "minim",
-	activeIndex: -1
+	activeIndex: 0
 }
 
 export default Highlight

@@ -9,7 +9,7 @@ class App extends Component {
 		super(props)
 		this.state = {
 			search: "",
-			searchIndex: -1
+			searchIndex: 0
 		}
 		this._changeName = this._handleInputChange.bind(this)
 		this._changeIndex = this._handleIndexChange.bind(this)
