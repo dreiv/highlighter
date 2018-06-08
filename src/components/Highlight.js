@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
 import { escapeRegExpFn, isScalar } from '../utils/utils'
+import ReactDOM from 'react-dom'
 
 class Highlight extends Component {
+
+	componentDidUpdate = function () {
+		const tesNode = ReactDOM.findDOMNode(this.refs.activeRef)
+		if (tesNode) {
+			tesNode.scrollIntoView();
+		}
+	};
 
 	render() {
 
@@ -18,7 +26,7 @@ class Highlight extends Component {
 						if (chunk.highlight) {
 							_indexCount++;
 							const isActive = _indexCount === +this.props.activeIndex
-							return <mark key={index} className='active'>{isActive ? '*' + chunkText : chunkText}</mark>
+							return <mark key={index} ref={isActive ? 'activeRef' : null} className='active'>{isActive ? '*' + chunkText : chunkText}</mark>
 						}
 						return <React.Fragment key={index}>{chunkText}</React.Fragment>
 					})}
