@@ -100,7 +100,7 @@ class Highlight extends Component {
 
 Highlight.defaultProps = {
 	searchWord: "minim",
-	activeIndex: 1,
+	activeIndex: 0,
 	setMatchCount: () => { }
 }
 
