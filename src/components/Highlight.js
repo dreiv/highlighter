@@ -27,7 +27,6 @@ class Highlight extends Component {
 
 			const matches = this.computeHighlightedChunks(text)
 			const allChunks = this.constructAllChunks(matches, text.length)
-			//
 
 			return (
 				<React.Fragment>
@@ -37,7 +36,7 @@ class Highlight extends Component {
 						if (chunk.highlight) {
 							this._indexCount++;
 							const isActive = this._indexCount === +this.props.activeIndex
-							return <mark key={index} ref={isActive ? 'activeRef' : null} className='active'>{isActive ? '*' + chunkText : chunkText}</mark>
+							return this.renderHighlight(index, isActive, chunkText)
 						}
 						return <React.Fragment key={index}>{chunkText}</React.Fragment>
 					})}
@@ -96,12 +95,23 @@ class Highlight extends Component {
 
 		return allChunks
 	}
+
+	renderHighlight(index, isActive, chunkText) {
+		return React.createElement(this.props.matchElement, {
+			key: index,
+			ref: isActive ? 'activeRef' : null,
+			className: isActive && this.props.activeClass,
+			children: chunkText
+		});
+	}
 }
 
 Highlight.defaultProps = {
 	searchWord: "minim",
 	activeIndex: 0,
-	setMatchCount: () => { }
+	setMatchCount: () => { },
+	matchElement: "mark",
+	activeClass: "active"
 }
 
 export default Highlight

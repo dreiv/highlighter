@@ -18,12 +18,18 @@ class FilterContainer extends React.Component {
 	}
 
 	render() {
-		return (<React.Fragment className="flex">
+		return (<React.Fragment>
 			<div className='search'>
 				<input type="search" value={this.state.search} onChange={this._changeName} />
 				<input type="number" value={this.state.searchIndex} placeholder={this.state.matchCount} onChange={this._changeIndex} />
 			</div>
-			<Highlight searchWord={this.state.search} activeIndex={this.state.searchIndex} setMatchCount={this._setMatchCount}>
+			<Highlight
+				searchWord={this.state.search}
+				activeIndex={this.state.searchIndex}
+				setMatchCount={this._setMatchCount}
+				activeClass="active"
+				matchElement="strong"
+			>
 				{data.map((el, idx) => <div key={idx}>{el.transcript}</div>)}
 			</Highlight>
 		</React.Fragment>)

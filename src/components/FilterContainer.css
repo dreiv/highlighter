@@ -23,3 +23,7 @@ i {
 	position: fixed;
 	top: 0px;
 }
+
+.active {
+	background-color: pink;
+}
