@@ -6,13 +6,18 @@ class Highlight extends Component {
 
 	_indexCount = 0
 
+	shouldComponentUpdate = function (nextProps) {
+		return (this.props.searchWord !== nextProps.searchWord) ||
+			(this.props.activeIndex !== nextProps.activeIndex)
+	};
+
 	componentDidUpdate = function () {
 		const tesNode = ReactDOM.findDOMNode(this.refs.activeRef)
 		if (tesNode) {
 			tesNode.scrollIntoView();
 		}
 		console.log(this._indexCount)
-		//this.props.setMatchCount(this._indexCount)
+		this.props.setMatchCount(this._indexCount)
 	}
 
 	render() {
@@ -95,7 +100,7 @@ class Highlight extends Component {
 
 Highlight.defaultProps = {
 	searchWord: "minim",
-	activeIndex: 0,
+	activeIndex: 1,
 	setMatchCount: () => { }
 }
 
