@@ -10,24 +10,20 @@ class FilterContainer extends React.Component {
 		this.state = {
 			search: "",
 			searchIndex: 0,
-			upButtonPressed: false,
-			downButtonPressed: true
+			matchCount: 0,
 		}
 		this._changeName = this._handleInputChange.bind(this)
 		this._changeIndex = this._handleIndexChange.bind(this)
-		this._handleUpButtonPress = this._handleUpButtonPress.bind(this)
-		this._handleDownButtonPress = this._handleDownButtonPress.bind(this)
+		this._setMatchCount = this._setMatchCount.bind(this)
 	}
 
 	render() {
 		return (<React.Fragment>
 			<div className='search'>
 				<input type="search" value={this.state.search} onChange={this._changeName} />
-				<button onClick={this._handleUpButtonPress}> <i className="arrow up"></i> </button>
-				<button> <i className="arrow down"></i> </button>
-				<input type="search" value={this.state.searchIndex} onChange={this._changeIndex} />
+				<input type="number" value={this.state.searchIndex} onChange={this._changeIndex} />
 			</div>
-			<Highlight className='text' searchWord={this.state.search} activeIndex={this.state.searchIndex} upButtonPressed={this.state.upButtonPressed}>
+			<Highlight className='text' searchWord={this.state.search} activeIndex={this.state.searchIndex} setMatchCount={this._setMatchCount}>
 				{data.map((el, idx) => <div key={idx}>{el.transcript}</div>)}
 			</Highlight>
 		</React.Fragment>)
@@ -41,18 +37,8 @@ class FilterContainer extends React.Component {
 		this.setState({ searchIndex: e.target.value })
 	}
 
-	_handleUpButtonPress(e) {
-		this.setState({
-			upButtonPressed: true,
-			downButtonPressed: false
-		})
-	}
-
-	_handleDownButtonPress(e) {
-		this.setState({
-			upButtonPressed: false,
-			downButtonPressed: true
-		})
+	_setMatchCount(matchCount) {
+		this.setState({ matchCount: matchCount })
 	}
 }
 

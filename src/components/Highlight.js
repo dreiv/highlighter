@@ -4,19 +4,25 @@ import ReactDOM from 'react-dom'
 
 class Highlight extends Component {
 
+	_indexCount = 0
+
 	componentDidUpdate = function () {
 		const tesNode = ReactDOM.findDOMNode(this.refs.activeRef)
 		if (tesNode) {
 			tesNode.scrollIntoView();
 		}
-	};
+		console.log(this._indexCount)
+		//this.props.setMatchCount(this._indexCount)
+	}
 
 	render() {
+		this._indexCount = 0;
 
-		let _indexCount = 0;
 		const fn = (text) => {
 
-			const allChunks = this.constructAllChunks(this.computeHighlightedChunks(text), text.length)
+			const matches = this.computeHighlightedChunks(text)
+			const allChunks = this.constructAllChunks(matches, text.length)
+			//
 
 			return (
 				<React.Fragment>
@@ -24,8 +30,8 @@ class Highlight extends Component {
 						const chunkText = text.substr(chunk.start, chunk.end - chunk.start)
 
 						if (chunk.highlight) {
-							_indexCount++;
-							const isActive = _indexCount === +this.props.activeIndex
+							this._indexCount++;
+							const isActive = this._indexCount === +this.props.activeIndex
 							return <mark key={index} ref={isActive ? 'activeRef' : null} className='active'>{isActive ? '*' + chunkText : chunkText}</mark>
 						}
 						return <React.Fragment key={index}>{chunkText}</React.Fragment>
@@ -89,7 +95,8 @@ class Highlight extends Component {
 
 Highlight.defaultProps = {
 	searchWord: "minim",
-	activeIndex: 0
+	activeIndex: 0,
+	setMatchCount: () => { }
 }
 
 export default Highlight
