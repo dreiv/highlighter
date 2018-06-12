@@ -34,8 +34,8 @@ class Highlight extends Component {
 						const chunkText = text.substr(chunk.start, chunk.end - chunk.start)
 
 						if (chunk.highlight) {
-							this._indexCount++;
-							const isActive = this._indexCount === +this.props.activeIndex
+
+							const isActive = this._indexCount++ === +this.props.activeIndex
 							return this.renderHighlight(index, isActive, chunkText)
 						}
 						return <React.Fragment key={index}>{chunkText}</React.Fragment>
@@ -100,7 +100,7 @@ class Highlight extends Component {
 		return React.createElement(this.props.matchElement, {
 			key: index,
 			ref: isActive ? 'activeRef' : null,
-			className: isActive && this.props.activeClass,
+			className: isActive ? this.props.activeClass : "",
 			children: chunkText
 		});
 	}
@@ -108,7 +108,7 @@ class Highlight extends Component {
 
 Highlight.defaultProps = {
 	searchWord: "minim",
-	activeIndex: 0,
+	activeIndex: -1,
 	setMatchCount: () => { },
 	matchElement: "mark",
 	activeClass: "active"

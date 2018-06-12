@@ -9,7 +9,7 @@ class FilterContainer extends React.Component {
 		super(props)
 		this.state = {
 			search: "",
-			searchIndex: 1,
+			searchIndex: 0,
 			matchCount: 0,
 		}
 		this._changeName = this._handleInputChange.bind(this)
@@ -21,7 +21,8 @@ class FilterContainer extends React.Component {
 		return (<React.Fragment>
 			<div className='search'>
 				<input type="search" value={this.state.search} onChange={this._changeName} />
-				<input type="number" value={this.state.searchIndex} placeholder={this.state.matchCount} onChange={this._changeIndex} />
+				<input type="number" value={this.state.searchIndex} onChange={this._changeIndex} />
+				<label> {`${+this.state.searchIndex + 1}/${this.state.matchCount}`} </label>
 			</div>
 			<Highlight
 				searchWord={this.state.search}
@@ -36,11 +37,24 @@ class FilterContainer extends React.Component {
 	}
 
 	_handleInputChange(e) {
-		this.setState({ search: e.target.value });
+		this.setState({
+			search: e.target.value,
+			searchIndex: 0
+		}
+		);
 	}
 
 	_handleIndexChange(e) {
-		this.setState({ searchIndex: e.target.value })
+
+		let circularSearchIndex
+		if (e.target.value < 0) {
+			circularSearchIndex = this.state.matchCount - 1
+		}
+		else {
+			circularSearchIndex = e.target.value % this.state.matchCount
+		}
+
+		this.setState({ searchIndex: circularSearchIndex })
 	}
 
 	_setMatchCount(matchCount) {

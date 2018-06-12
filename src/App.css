@@ -1,3 +1,7 @@
 .App > div {
  margin: .5rem 1rem;
 }
+
+.App{
+	padding-top: 30px;
+}

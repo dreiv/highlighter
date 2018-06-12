@@ -15,11 +15,8 @@ i {
     -webkit-transform: rotate(45deg);
 }
 
-.text {
-	margin-top: 30px;
-}
-
 .search {
+	background-color: white;
 	position: fixed;
 	top: 0px;
 }
